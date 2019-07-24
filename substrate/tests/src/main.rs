@@ -24,23 +24,37 @@ use substrate_rpc::author::{
 
 fn main() {
 
-    rt::run(rt::lazy(|| {
+     rt::run(rt::lazy(|| {
         let uri = "http://192.168.2.158:9933";
 
         http::connect(uri)
             .and_then(|client: SystemClient<Hash, Hash>| {
-                get_system_name(client)
+                get_system_name(&client)
+
             })
             .map_err(|e| {
                 println!("Error: {:?}", e);
             })
-    }))
+     }));
 }
 
-fn get_system_name(client: SystemClient<Hash, Hash>) -> impl Future<Item=(), Error=RpcError> {
-    client.system_name()
-        .map(|removed| {
-            println!("{:?}", removed);
+fn get_system_name(client: &SystemClient<Hash, Hash>) -> impl Future<Item=(), Error=RpcError> {
+    let _ = client.system_name()
+        .map(|system_name| {
+            println!("{:?}", system_name);
+        }).wait();
+    let _ = client.system_chain()
+        .map(|system_name| {
+            println!("{:?}", system_name);
+        }).wait();
+    let _ = client.system_version()
+        .map(|system_name| {
+            println!("{:?}", system_name);
+        }).wait();
+    client.system_properties()
+        .map(|system_name| {
+            println!("{:?}", system_name);
         })
+
 }
 
