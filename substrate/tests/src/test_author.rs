@@ -26,7 +26,7 @@ use substrate_rpc::{system::SystemClient,
 };
 use node_primitives::{Hash};
 use node_runtime::{Address, Block, Header, SignedBlock};
-fn main() {
+pub fn test_author() {
 
     rt::run(rt::lazy(|| {
         let uri = "http://192.168.2.158:9933";
@@ -40,7 +40,6 @@ fn main() {
             })
     }));
 }
-
 
 fn get_author_api(client: &AuthorClient<Hash, Hash>) -> impl Future<Item=(), Error=RpcError> {
     client.submit_extrinsic(vec![1, 2, 3].into())

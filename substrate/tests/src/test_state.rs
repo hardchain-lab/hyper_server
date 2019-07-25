@@ -26,14 +26,14 @@ use substrate_rpc::{system::SystemClient,
 };
 use node_primitives::{Hash};
 use node_runtime::{Address, Block, Header, SignedBlock};
-fn main() {
+fn test_state() {
 
     rt::run(rt::lazy(|| {
         let uri = "http://192.168.2.158:9933";
 
         http::connect(uri)
-            .and_then(|client: AuthorClient<Hash, Hash>| {
-                get_author_api(&client)
+            .and_then(|client: StateClient<Hash>| {
+                get_state_api(&client)
             })
             .map_err(|e| {
                 println!("Error: {:?}", e);
@@ -42,10 +42,10 @@ fn main() {
 }
 
 
-fn get_author_api(client: &AuthorClient<Hash, Hash>) -> impl Future<Item=(), Error=RpcError> {
-    client.submit_extrinsic(vec![1, 2, 3].into())
-        .map(|result| {
-            println!("{:?}", result);
+fn get_state_api(client: &StateClient<Hash>) -> impl Future<Item=(), Error=RpcError> {
+    client.runtime_version(Some([0; 32].into()))
+        .map(|runtime_version| {
+            println!("{:?}", runtime_version);
         })
 }
 
