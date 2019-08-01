@@ -54,7 +54,7 @@ fn get_tx() {
     println!("0x{}", hex::encode(&extrinsic.encode()));
 }
 
-fn main() {
-    get_tx();
-}
+//fn main() {
+//    get_tx();
+//}
 

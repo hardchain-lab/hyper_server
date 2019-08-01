@@ -13,6 +13,11 @@ futures = "0.1.28"
 hyper = "0.12.33"
 hex = "0.3.2"
 parity-codec = "4.1.3"
+ed25519-dalek = {git = "https://github.com/dalek-cryptography/ed25519-dalek"}
+rand = "0.7.0"
+schnorrkel = "0.7.0"
+sha2 = "0.8.0"
+hex-literal = "0.2"
 
 node-runtime = {git = "https://github.com/paritytech/substrate"}
 substrate-rpc = {git = "https://github.com/paritytech/substrate"}
